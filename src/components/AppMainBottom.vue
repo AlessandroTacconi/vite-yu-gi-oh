@@ -1,6 +1,24 @@
 <script>
+import axios from 'axios';
+import ListaCarte from './ListaCarte.vue';
+
 export default {
   name: 'AppMainBottom',
+  components: {
+    ListaCarte,
+  },
+
+  data() {
+    return {
+      cards: [],
+      apiURL: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0',
+    };
+  },
+  created() {
+    axios.get(this.apiURL).then((response) => {
+      this.cards = response.data.data;
+    });
+  },
 };
 </script>
 
@@ -8,6 +26,14 @@ export default {
   <div class="white container">
     <div class="">
       <div class="card-counter">Found 39 cards</div>
+      <div class="card-list">
+        <ListaCarte
+          v-for="card in cards"
+          :img="card.card_images[0].image_url"
+          :name="card.name"
+          :archetype="card.archetype"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +49,11 @@ export default {
     padding: 20px;
     color: white;
   }
-  .card-list
+
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
 }
 </style>

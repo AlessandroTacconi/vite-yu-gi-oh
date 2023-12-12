@@ -1,22 +1,24 @@
 <script>
 import axios from 'axios';
 import ListaCarte from './ListaCarte.vue';
+import { store } from '../store';
+import ContatoreCarte from './ContatoreCarte.vue';
 
 export default {
   name: 'AppMainBottom',
   components: {
     ListaCarte,
+    ContatoreCarte,
   },
 
   data() {
     return {
-      cards: [],
-      apiURL: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0',
+      store,
     };
   },
   created() {
-    axios.get(this.apiURL).then((response) => {
-      this.cards = response.data.data;
+    axios.get(store.apiURL).then((response) => {
+      store.cards = response.data.data;
     });
   },
 };
@@ -24,11 +26,11 @@ export default {
 
 <template>
   <div class="white container">
-    <div class="">
-      <div class="card-counter">Found 39 cards</div>
+    <div>
+      <ContatoreCarte />
       <div class="card-list">
         <ListaCarte
-          v-for="card in cards"
+          v-for="card in store.cards"
           :img="card.card_images[0].image_url"
           :name="card.name"
           :archetype="card.archetype"
@@ -43,8 +45,9 @@ export default {
 .white {
   background-color: white;
   padding: 50px;
+  padding-bottom: 0;
 
-  .card-counter {
+  :deep(.card-counter) {
     background-color: black;
     padding: 20px;
     color: white;

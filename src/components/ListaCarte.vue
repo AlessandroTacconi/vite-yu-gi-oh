@@ -1,6 +1,13 @@
 <script>
+import { store } from '../store';
 export default {
   name: 'ListaCarte',
+  data() {
+    return {
+      store,
+    };
+  },
+
   components: {},
   props: ['img', 'name', 'archetype'],
 };
@@ -21,7 +28,7 @@ export default {
 <style scoped lang="scss">
 @use '../assets/scss/partials/variables.scss' as *;
 ul {
-  width: calc((100% / 5) - 30px);
+  width: calc((100% - 120px) / 5);
   list-style: none;
   li {
     img {

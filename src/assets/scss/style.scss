@@ -1,0 +1,8 @@
+@use './partials/reset' as *;
+@use './partials/typo' as *;
+@use './partials/variables' as *;
+
+.container {
+  margin: auto;
+  max-width: 1140px;
+}

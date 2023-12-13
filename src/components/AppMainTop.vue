@@ -1,15 +1,33 @@
 <script>
+import axios from 'axios';
+import { store } from '../store';
 export default {
   name: 'AppMainTop',
+  data() {
+    return {
+      store,
+      trovaArch: '',
+    };
+  },
+  created() {
+    axios.get(store.apiURL2).then((response) => {
+      store.archetipi = response.data;
+    });
+  },
 };
 </script>
 
 <template>
   <div class="select container">
-    <select>
-      <option value="0">Alien</option>
-      <option value="1">Prova1</option>
-      <option value="2">Prova2</option>
+    <label for="scegli-archetipo"></label>
+    <select id="scegli-archetipo" v-model="trovaArch">
+      <option selected value="">cerca</option>
+      <option
+        :value="archetip.archetype_name"
+        v-for="archetip in store.archetipi"
+      >
+        {{ archetip.archetype_name }}
+      </option>
     </select>
   </div>
 </template>

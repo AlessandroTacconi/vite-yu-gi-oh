@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import ListaCarte from './ListaCarte.vue';
 import { store } from '../store';
 import ContatoreCarte from './ContatoreCarte.vue';
@@ -15,11 +14,6 @@ export default {
     return {
       store,
     };
-  },
-  created() {
-    axios.get(store.apiURL).then((response) => {
-      store.cards = response.data.data;
-    });
   },
 };
 </script>

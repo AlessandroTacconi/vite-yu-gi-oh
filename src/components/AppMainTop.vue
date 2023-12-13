@@ -1,18 +1,11 @@
 <script>
-import axios from 'axios';
 import { store } from '../store';
 export default {
   name: 'AppMainTop',
   data() {
     return {
       store,
-      trovaArch: '',
     };
-  },
-  created() {
-    axios.get(store.apiURL2).then((response) => {
-      store.archetipi = response.data;
-    });
   },
 };
 </script>
@@ -20,9 +13,14 @@ export default {
 <template>
   <div class="select container">
     <label for="scegli-archetipo"></label>
-    <select id="scegli-archetipo" v-model="trovaArch">
-      <option selected value="">cerca</option>
+    <select
+      id="scegli-archetipo"
+      v-model="store.trovaArch"
+      @change="$emit('trovaArchet')"
+    >
+      <option value="">cerca</option>
       <option
+        selected
         :value="archetip.archetype_name"
         v-for="archetip in store.archetipi"
       >
